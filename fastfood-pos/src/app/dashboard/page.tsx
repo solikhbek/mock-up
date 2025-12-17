@@ -266,7 +266,7 @@ export default function DashboardPage() {
                   <XAxis dataKey="dayName" tick={{ fontSize: 12 }} />
                   <YAxis tickFormatter={formatShortPrice} tick={{ fontSize: 12 }} />
                   <Tooltip
-                    formatter={(value: number) => [`${formatPrice(value)} сум`, 'Выручка']}
+                    formatter={(value) => [`${formatPrice(Number(value))} сум`, 'Выручка']}
                     labelFormatter={(label) => `День: ${label}`}
                   />
                   <Area
@@ -292,7 +292,7 @@ export default function DashboardPage() {
                   <XAxis dataKey="dayName" tick={{ fontSize: 12 }} />
                   <YAxis tick={{ fontSize: 12 }} />
                   <Tooltip
-                    formatter={(value: number) => [value, 'Заказов']}
+                    formatter={(value) => [value, 'Заказов']}
                   />
                   <Bar dataKey="orders" fill="#3b82f6" radius={[4, 4, 0, 0]} />
                 </BarChart>
@@ -322,7 +322,7 @@ export default function DashboardPage() {
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value: number) => `${formatPrice(value)} сум`} />
+                  <Tooltip formatter={(value) => `${formatPrice(Number(value))} сум`} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>

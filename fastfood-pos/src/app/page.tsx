@@ -116,13 +116,34 @@ export default function HomePage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-12">
-        {/* Welcome Section */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Добро пожаловать в систему управления
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Выберите модуль для работы. Каждый модуль доступен в зависимости от вашей роли в системе.
+        {/* Quick Stats - Dashboard */}
+        <div className="mb-10">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Сводка за сегодня</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="text-3xl font-bold text-gray-900">127</div>
+              <div className="text-sm text-gray-500 mt-1">Заказов сегодня</div>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="text-3xl font-bold text-green-600">4,250,000</div>
+              <div className="text-sm text-gray-500 mt-1">Выручка (сум)</div>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="text-3xl font-bold text-gray-900">33,500</div>
+              <div className="text-sm text-gray-500 mt-1">Средний чек</div>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="text-3xl font-bold text-orange-500">5</div>
+              <div className="text-sm text-gray-500 mt-1">В очереди</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Modules Section */}
+        <div className="mb-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Модули системы</h2>
+          <p className="text-gray-600 mb-6">
+            Выберите модуль для работы. Каждый модуль доступен в зависимости от вашей роли.
           </p>
         </div>
 
@@ -160,26 +181,6 @@ export default function HomePage() {
               </Link>
             )
           })}
-        </div>
-
-        {/* Quick Stats */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-            <div className="text-3xl font-bold text-gray-900">127</div>
-            <div className="text-sm text-gray-500 mt-1">Заказов сегодня</div>
-          </div>
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-            <div className="text-3xl font-bold text-green-600">4,250,000</div>
-            <div className="text-sm text-gray-500 mt-1">Выручка (сум)</div>
-          </div>
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-            <div className="text-3xl font-bold text-gray-900">33,500</div>
-            <div className="text-sm text-gray-500 mt-1">Средний чек</div>
-          </div>
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-            <div className="text-3xl font-bold text-orange-500">5</div>
-            <div className="text-sm text-gray-500 mt-1">В очереди</div>
-          </div>
         </div>
 
         {/* Info Banner */}

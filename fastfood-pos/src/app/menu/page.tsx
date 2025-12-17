@@ -8,10 +8,8 @@ import {
   Search,
   Edit2,
   Trash2,
-  MoreVertical,
   Eye,
   EyeOff,
-  Package,
   X,
   Save,
   UtensilsCrossed
@@ -48,9 +46,9 @@ export default function MenuPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [loading, setLoading] = useState(true)
   const [showAddProduct, setShowAddProduct] = useState(false)
+  const [showEditProduct, setShowEditProduct] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
 
-  // Form state
   const [formData, setFormData] = useState({
     name: '',
     nameUz: '',
@@ -92,9 +90,12 @@ export default function MenuPage() {
     return new Intl.NumberFormat('uz-UZ').format(price)
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const resetForm = () => {
+    setFormData({ name: '', nameUz: '', description: '', price: '', categoryId: '' })
+  }
 
+  const handleAddSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
     try {
       const res = await fetch('/api/products', {
         method: 'POST',
@@ -108,15 +109,61 @@ export default function MenuPage() {
       if (res.ok) {
         fetchData()
         setShowAddProduct(false)
-        setFormData({ name: '', nameUz: '', description: '', price: '', categoryId: '' })
+        resetForm()
       }
     } catch (error) {
       console.error('Error creating product:', error)
     }
   }
 
-  const toggleProductStock = async (product: Product) => {
-    // In real app, call API to toggle stock
+  const handleEditSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!editingProduct) return
+
+    try {
+      // Since API might not have PATCH for products, update locally
+      setProducts(prev =>
+        prev.map(p =>
+          p.id === editingProduct.id
+            ? {
+                ...p,
+                name: formData.name,
+                nameUz: formData.nameUz,
+                description: formData.description,
+                price: parseInt(formData.price),
+                categoryId: formData.categoryId,
+                category: categories.find(c => c.id === formData.categoryId) || p.category
+              }
+            : p
+        )
+      )
+      setShowEditProduct(false)
+      setEditingProduct(null)
+      resetForm()
+    } catch (error) {
+      console.error('Error updating product:', error)
+    }
+  }
+
+  const openEditModal = (product: Product) => {
+    setEditingProduct(product)
+    setFormData({
+      name: product.name,
+      nameUz: product.nameUz || '',
+      description: product.description || '',
+      price: product.price.toString(),
+      categoryId: product.categoryId,
+    })
+    setShowEditProduct(true)
+  }
+
+  const handleDeleteProduct = (productId: string) => {
+    if (confirm('Удалить это блюдо из меню?')) {
+      setProducts(prev => prev.filter(p => p.id !== productId))
+    }
+  }
+
+  const toggleProductStock = (product: Product) => {
     setProducts(prev =>
       prev.map(p =>
         p.id === product.id ? { ...p, inStock: !p.inStock } : p
@@ -145,9 +192,14 @@ export default function MenuPage() {
               <Link href="/" className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                 <ArrowLeft className="w-5 h-5" />
               </Link>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">Управление меню</h1>
-                <p className="text-sm text-gray-500">{products.length} блюд в {categories.length} категориях</p>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center">
+                  <UtensilsCrossed className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-gray-900">Управление меню</h1>
+                  <p className="text-sm text-gray-500">{products.length} блюд в {categories.length} категориях</p>
+                </div>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -242,9 +294,6 @@ export default function MenuPage() {
                             <p className="text-sm text-gray-500">{product.nameUz}</p>
                           )}
                         </div>
-                        <button className="p-1 hover:bg-gray-100 rounded transition-colors">
-                          <MoreVertical className="w-4 h-4 text-gray-400" />
-                        </button>
                       </div>
 
                       {product.description && (
@@ -255,7 +304,7 @@ export default function MenuPage() {
                         <span className="text-lg font-bold text-purple-600">
                           {formatPrice(product.price)} сум
                         </span>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1">
                           <button
                             onClick={() => toggleProductStock(product)}
                             className={`p-2 rounded-lg transition-colors ${
@@ -268,10 +317,18 @@ export default function MenuPage() {
                             {product.inStock ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                           </button>
                           <button
-                            onClick={() => setEditingProduct(product)}
-                            className="p-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors"
+                            onClick={() => openEditModal(product)}
+                            className="p-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-colors"
+                            title="Редактировать"
                           >
                             <Edit2 className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteProduct(product.id)}
+                            className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
+                            title="Удалить"
+                          >
+                            <Trash2 className="w-4 h-4" />
                           </button>
                         </div>
                       </div>
@@ -298,7 +355,7 @@ export default function MenuPage() {
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-bold text-gray-900">Добавить блюдо</h2>
                 <button
-                  onClick={() => setShowAddProduct(false)}
+                  onClick={() => { setShowAddProduct(false); resetForm(); }}
                   className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 >
                   <X className="w-5 h-5" />
@@ -306,11 +363,9 @@ export default function MenuPage() {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+            <form onSubmit={handleAddSubmit} className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Название (рус)
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Название (рус)</label>
                 <input
                   type="text"
                   value={formData.name}
@@ -321,9 +376,7 @@ export default function MenuPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Название (узб)
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Название (узб)</label>
                 <input
                   type="text"
                   value={formData.nameUz}
@@ -333,9 +386,7 @@ export default function MenuPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Описание
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Описание</label>
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -345,9 +396,7 @@ export default function MenuPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Цена (сум)
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Цена (сум)</label>
                 <input
                   type="number"
                   value={formData.price}
@@ -358,9 +407,7 @@ export default function MenuPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Категория
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Категория</label>
                 <select
                   value={formData.categoryId}
                   onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
@@ -379,7 +426,103 @@ export default function MenuPage() {
               <div className="flex gap-3 pt-4">
                 <button
                   type="button"
-                  onClick={() => setShowAddProduct(false)}
+                  onClick={() => { setShowAddProduct(false); resetForm(); }}
+                  className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-colors"
+                >
+                  Отмена
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 py-3 bg-purple-500 text-white rounded-xl font-medium hover:bg-purple-600 transition-colors flex items-center justify-center gap-2"
+                >
+                  <Save className="w-5 h-5" />
+                  Сохранить
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Product Modal */}
+      {showEditProduct && editingProduct && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-auto">
+            <div className="p-6 border-b border-gray-100">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-bold text-gray-900">Редактировать блюдо</h2>
+                <button
+                  onClick={() => { setShowEditProduct(false); setEditingProduct(null); resetForm(); }}
+                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            <form onSubmit={handleEditSubmit} className="p-6 space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Название (рус)</label>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Название (узб)</label>
+                <input
+                  type="text"
+                  value={formData.nameUz}
+                  onChange={(e) => setFormData({ ...formData, nameUz: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Описание</label>
+                <textarea
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none resize-none"
+                  rows={3}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Цена (сум)</label>
+                <input
+                  type="number"
+                  value={formData.price}
+                  onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Категория</label>
+                <select
+                  value={formData.categoryId}
+                  onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+                  required
+                >
+                  {categories.map((cat) => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.icon} {cat.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex gap-3 pt-4">
+                <button
+                  type="button"
+                  onClick={() => { setShowEditProduct(false); setEditingProduct(null); resetForm(); }}
                   className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-colors"
                 >
                   Отмена
