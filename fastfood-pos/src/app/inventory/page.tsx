@@ -28,14 +28,14 @@ interface InventoryItem {
 }
 
 const initialInventory: InventoryItem[] = [
-  { id: '1', name: 'Булочки для бургеров', category: 'Хлеб', unit: 'шт', currentStock: 150, minStock: 50, maxStock: 300, costPerUnit: 1500, lastUpdated: '2024-01-15', status: 'ok' },
-  { id: '2', name: 'Котлеты говяжьи', category: 'Мясо', unit: 'шт', currentStock: 80, minStock: 30, maxStock: 200, costPerUnit: 8000, lastUpdated: '2024-01-15', status: 'ok' },
-  { id: '3', name: 'Котлеты куриные', category: 'Мясо', unit: 'шт', currentStock: 25, minStock: 30, maxStock: 150, costPerUnit: 6000, lastUpdated: '2024-01-14', status: 'low' },
-  { id: '4', name: 'Сыр чеддер', category: 'Молочка', unit: 'кг', currentStock: 5, minStock: 10, maxStock: 30, costPerUnit: 85000, lastUpdated: '2024-01-15', status: 'critical' },
-  { id: '5', name: 'Салат айсберг', category: 'Овощи', unit: 'кг', currentStock: 12, minStock: 5, maxStock: 25, costPerUnit: 25000, lastUpdated: '2024-01-15', status: 'ok' },
-  { id: '6', name: 'Помидоры', category: 'Овощи', unit: 'кг', currentStock: 8, minStock: 5, maxStock: 20, costPerUnit: 18000, lastUpdated: '2024-01-15', status: 'ok' },
-  { id: '7', name: 'Картофель фри (замор.)', category: 'Заморозка', unit: 'кг', currentStock: 15, minStock: 20, maxStock: 50, costPerUnit: 22000, lastUpdated: '2024-01-14', status: 'low' },
-  { id: '8', name: 'Coca-Cola 0.5л', category: 'Напитки', unit: 'шт', currentStock: 200, minStock: 100, maxStock: 500, costPerUnit: 6500, lastUpdated: '2024-01-15', status: 'ok' },
+  { id: '1', name: 'Булочки для бургеров', category: 'Хлеб', unit: 'шт', currentStock: 150, minStock: 50, maxStock: 300, costPerUnit: 1500, lastUpdated: '2025-12-17', status: 'ok' },
+  { id: '2', name: 'Котлеты говяжьи', category: 'Мясо', unit: 'шт', currentStock: 80, minStock: 30, maxStock: 200, costPerUnit: 8000, lastUpdated: '2025-12-17', status: 'ok' },
+  { id: '3', name: 'Котлеты куриные', category: 'Мясо', unit: 'шт', currentStock: 25, minStock: 30, maxStock: 150, costPerUnit: 6000, lastUpdated: '2025-12-16', status: 'low' },
+  { id: '4', name: 'Сыр чеддер', category: 'Молочка', unit: 'кг', currentStock: 5, minStock: 10, maxStock: 30, costPerUnit: 85000, lastUpdated: '2025-12-17', status: 'critical' },
+  { id: '5', name: 'Салат айсберг', category: 'Овощи', unit: 'кг', currentStock: 12, minStock: 5, maxStock: 25, costPerUnit: 25000, lastUpdated: '2025-12-17', status: 'ok' },
+  { id: '6', name: 'Помидоры', category: 'Овощи', unit: 'кг', currentStock: 8, minStock: 5, maxStock: 20, costPerUnit: 18000, lastUpdated: '2025-12-17', status: 'ok' },
+  { id: '7', name: 'Картофель фри (замор.)', category: 'Заморозка', unit: 'кг', currentStock: 15, minStock: 20, maxStock: 50, costPerUnit: 22000, lastUpdated: '2025-12-16', status: 'low' },
+  { id: '8', name: 'Coca-Cola 0.5л', category: 'Напитки', unit: 'шт', currentStock: 200, minStock: 100, maxStock: 500, costPerUnit: 6500, lastUpdated: '2025-12-17', status: 'ok' },
 ]
 
 const categories = ['Все', 'Хлеб', 'Мясо', 'Молочка', 'Овощи', 'Заморозка', 'Напитки', 'Масла', 'Соусы']

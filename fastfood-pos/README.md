@@ -138,4 +138,4 @@ fastfood-pos/
 
 ---
 
-**FastFood POS MVP** | Project Manager Case Study | 2024
+**FastFood POS MVP** | Project Manager Case Study | 2025

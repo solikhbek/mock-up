@@ -25,14 +25,14 @@ interface Transaction {
 }
 
 const initialTransactions: Transaction[] = [
-  { id: '1', date: '2024-01-15', type: 'income', category: 'Продажи', description: 'Дневная выручка - Central', amount: 4250000, branch: 'Central' },
-  { id: '2', date: '2024-01-15', type: 'income', category: 'Продажи', description: 'Дневная выручка - Yunusabad', amount: 2890000, branch: 'Yunusabad' },
-  { id: '3', date: '2024-01-15', type: 'expense', category: 'Закупки', description: 'Продукты от поставщика "Агро"', amount: 1850000, branch: 'Central' },
-  { id: '4', date: '2024-01-15', type: 'expense', category: 'Зарплата', description: 'Аванс сотрудникам', amount: 3500000, branch: 'Все' },
-  { id: '5', date: '2024-01-15', type: 'expense', category: 'Коммунальные', description: 'Электричество - Central', amount: 450000, branch: 'Central' },
-  { id: '6', date: '2024-01-14', type: 'income', category: 'Продажи', description: 'Дневная выручка - Central', amount: 3980000, branch: 'Central' },
-  { id: '7', date: '2024-01-14', type: 'income', category: 'Продажи', description: 'Дневная выручка - Sergeli', amount: 3150000, branch: 'Sergeli' },
-  { id: '8', date: '2024-01-14', type: 'expense', category: 'Закупки', description: 'Напитки от "Coca-Cola"', amount: 980000, branch: 'Все' },
+  { id: '1', date: '2025-12-17', type: 'income', category: 'Продажи', description: 'Дневная выручка - Central', amount: 4250000, branch: 'Central' },
+  { id: '2', date: '2025-12-17', type: 'income', category: 'Продажи', description: 'Дневная выручка - Yunusabad', amount: 2890000, branch: 'Yunusabad' },
+  { id: '3', date: '2025-12-17', type: 'expense', category: 'Закупки', description: 'Продукты от поставщика "Агро"', amount: 1850000, branch: 'Central' },
+  { id: '4', date: '2025-12-17', type: 'expense', category: 'Зарплата', description: 'Аванс сотрудникам', amount: 3500000, branch: 'Все' },
+  { id: '5', date: '2025-12-17', type: 'expense', category: 'Коммунальные', description: 'Электричество - Central', amount: 450000, branch: 'Central' },
+  { id: '6', date: '2025-12-16', type: 'income', category: 'Продажи', description: 'Дневная выручка - Central', amount: 3980000, branch: 'Central' },
+  { id: '7', date: '2025-12-16', type: 'income', category: 'Продажи', description: 'Дневная выручка - Sergeli', amount: 3150000, branch: 'Sergeli' },
+  { id: '8', date: '2025-12-16', type: 'expense', category: 'Закупки', description: 'Напитки от "Coca-Cola"', amount: 980000, branch: 'Все' },
 ]
 
 const incomeCategories = ['Продажи', 'Возврат', 'Прочие доходы']

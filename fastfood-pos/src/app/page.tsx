@@ -218,7 +218,7 @@ export default function HomePage() {
       <footer className="bg-white border-t border-gray-100 mt-12">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between text-sm text-gray-500">
-            <span>FastFood POS © 2024. MVP Version</span>
+            <span>FastFood POS © 2025. MVP Version</span>
             <span>Разработано для Project Manager Case Study</span>
           </div>
         </div>
