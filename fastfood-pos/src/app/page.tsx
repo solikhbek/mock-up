@@ -10,7 +10,8 @@ import {
   Users,
   UtensilsCrossed,
   TrendingUp,
-  Building2
+  Building2,
+  Clock
 } from 'lucide-react'
 
 const modules = [
@@ -77,6 +78,14 @@ const modules = [
     href: '/branches',
     color: 'bg-indigo-500',
     roles: ['Директор'],
+  },
+  {
+    title: 'Персонал',
+    description: 'Учёт времени и KPI',
+    icon: Clock,
+    href: '/staff',
+    color: 'bg-teal-500',
+    roles: ['Директор', 'Менеджер'],
   },
   {
     title: 'Пользователи',
