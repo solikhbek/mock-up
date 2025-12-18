@@ -192,6 +192,35 @@ export default function POSPage() {
     return new Intl.NumberFormat('uz-UZ').format(price)
   }
 
+  // Функция для определения иконки по названию продукта
+  const getProductIcon = (name: string): string => {
+    const lowerName = name.toLowerCase()
+
+    if (lowerName.includes('бургер') || lowerName.includes('burger') || lowerName.includes('биг мак') || lowerName.includes('воппер') || lowerName.includes('гамбургер')) return '🍔'
+    if (lowerName.includes('хот-дог') || lowerName.includes('хотдог') || lowerName.includes('hot dog')) return '🌭'
+    if (lowerName.includes('сэндвич') || lowerName.includes('сендвич') || lowerName.includes('sandwich') || lowerName.includes('ролл') || lowerName.includes('шаурма') || lowerName.includes('донер')) return '🥪'
+    if (lowerName.includes('пицца') || lowerName.includes('pizza')) return '🍕'
+    if (lowerName.includes('фри') || lowerName.includes('картофель') || lowerName.includes('картошка') || lowerName.includes('fries')) return '🍟'
+    if (lowerName.includes('наггетс') || lowerName.includes('нагетс') || lowerName.includes('nugget') || lowerName.includes('стрипс') || lowerName.includes('крылышки') || lowerName.includes('wings')) return '🍗'
+    if (lowerName.includes('куриц') || lowerName.includes('курин') || lowerName.includes('chicken')) return '🍗'
+    if (lowerName.includes('салат') || lowerName.includes('salad')) return '🥗'
+    if (lowerName.includes('кола') || lowerName.includes('cola') || lowerName.includes('пепси') || lowerName.includes('спрайт') || lowerName.includes('фанта') || lowerName.includes('газировка')) return '🥤'
+    if (lowerName.includes('сок') || lowerName.includes('juice') || lowerName.includes('нектар')) return '🧃'
+    if (lowerName.includes('кофе') || lowerName.includes('coffee') || lowerName.includes('латте') || lowerName.includes('капучино') || lowerName.includes('американо')) return '☕'
+    if (lowerName.includes('чай') || lowerName.includes('tea')) return '🍵'
+    if (lowerName.includes('коктейль') || lowerName.includes('милкшейк') || lowerName.includes('shake') || lowerName.includes('смузи')) return '🥛'
+    if (lowerName.includes('мороженое') || lowerName.includes('морожен') || lowerName.includes('ice cream') || lowerName.includes('пломбир') || lowerName.includes('санде') || lowerName.includes('макфлурри')) return '🍦'
+    if (lowerName.includes('пирог') || lowerName.includes('pie') || lowerName.includes('торт') || lowerName.includes('cake') || lowerName.includes('маффин') || lowerName.includes('кекс')) return '🍰'
+    if (lowerName.includes('пончик') || lowerName.includes('donut') || lowerName.includes('донат')) return '🍩'
+    if (lowerName.includes('печень') || lowerName.includes('cookie')) return '🍪'
+    if (lowerName.includes('тако') || lowerName.includes('taco')) return '🌮'
+    if (lowerName.includes('буррито') || lowerName.includes('burrito')) return '🌯'
+    if (lowerName.includes('соус') || lowerName.includes('sauce') || lowerName.includes('кетчуп') || lowerName.includes('майонез')) return '🫙'
+    if (lowerName.includes('вода') || lowerName.includes('water') || lowerName.includes('минерал')) return '💧'
+
+    return '🍽️'
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -285,7 +314,7 @@ export default function POSPage() {
                 className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md hover:border-red-300 transition-all text-left group"
               >
                 <div className="w-full h-24 bg-gradient-to-br from-red-50 to-orange-50 rounded-lg mb-3 flex items-center justify-center text-4xl">
-                  🍔
+                  {getProductIcon(product.name)}
                 </div>
                 <h3 className="font-medium text-gray-900 group-hover:text-red-600 transition-colors line-clamp-2">
                   {product.name}

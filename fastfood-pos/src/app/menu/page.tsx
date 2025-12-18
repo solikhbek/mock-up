@@ -90,6 +90,120 @@ export default function MenuPage() {
     return new Intl.NumberFormat('uz-UZ').format(price)
   }
 
+  // Функция для определения иконки по названию продукта
+  const getProductIcon = (name: string, categoryName?: string): string => {
+    const lowerName = name.toLowerCase()
+    const lowerCategory = categoryName?.toLowerCase() || ''
+
+    // Бургеры
+    if (lowerName.includes('бургер') || lowerName.includes('burger') || lowerName.includes('биг мак') || lowerName.includes('воппер') || lowerName.includes('гамбургер')) {
+      return '🍔'
+    }
+    // Хот-доги
+    if (lowerName.includes('хот-дог') || lowerName.includes('хотдог') || lowerName.includes('hot dog') || lowerName.includes('hotdog')) {
+      return '🌭'
+    }
+    // Сэндвичи и роллы
+    if (lowerName.includes('сэндвич') || lowerName.includes('сендвич') || lowerName.includes('sandwich') || lowerName.includes('ролл') || lowerName.includes('wrap') || lowerName.includes('шаурма') || lowerName.includes('донер')) {
+      return '🥪'
+    }
+    // Пицца
+    if (lowerName.includes('пицца') || lowerName.includes('pizza')) {
+      return '🍕'
+    }
+    // Картофель фри
+    if (lowerName.includes('фри') || lowerName.includes('картофель') || lowerName.includes('картошка') || lowerName.includes('fries') || lowerName.includes('potato')) {
+      return '🍟'
+    }
+    // Наггетсы и куриные блюда
+    if (lowerName.includes('наггетс') || lowerName.includes('нагетс') || lowerName.includes('nugget') || lowerName.includes('стрипс') || lowerName.includes('крылышки') || lowerName.includes('wings')) {
+      return '🍗'
+    }
+    // Курица
+    if (lowerName.includes('куриц') || lowerName.includes('курин') || lowerName.includes('chicken') || lowerName.includes('цыпл')) {
+      return '🍗'
+    }
+    // Салаты
+    if (lowerName.includes('салат') || lowerName.includes('salad') || lowerCategory.includes('салат')) {
+      return '🥗'
+    }
+    // Кола и газировки
+    if (lowerName.includes('кола') || lowerName.includes('cola') || lowerName.includes('пепси') || lowerName.includes('pepsi') || lowerName.includes('спрайт') || lowerName.includes('sprite') || lowerName.includes('фанта') || lowerName.includes('fanta') || lowerName.includes('газировка')) {
+      return '🥤'
+    }
+    // Соки
+    if (lowerName.includes('сок') || lowerName.includes('juice') || lowerName.includes('нектар')) {
+      return '🧃'
+    }
+    // Кофе
+    if (lowerName.includes('кофе') || lowerName.includes('coffee') || lowerName.includes('латте') || lowerName.includes('капучино') || lowerName.includes('американо') || lowerName.includes('эспрессо')) {
+      return '☕'
+    }
+    // Чай
+    if (lowerName.includes('чай') || lowerName.includes('tea')) {
+      return '🍵'
+    }
+    // Молочные коктейли
+    if (lowerName.includes('коктейль') || lowerName.includes('милкшейк') || lowerName.includes('shake') || lowerName.includes('смузи') || lowerName.includes('smoothie')) {
+      return '🥛'
+    }
+    // Мороженое
+    if (lowerName.includes('мороженое') || lowerName.includes('морожен') || lowerName.includes('ice cream') || lowerName.includes('айс крим') || lowerName.includes('пломбир') || lowerName.includes('санде') || lowerName.includes('sundae') || lowerName.includes('макфлурри')) {
+      return '🍦'
+    }
+    // Десерты и выпечка
+    if (lowerName.includes('пирог') || lowerName.includes('pie') || lowerName.includes('торт') || lowerName.includes('cake') || lowerName.includes('маффин') || lowerName.includes('muffin') || lowerName.includes('кекс')) {
+      return '🍰'
+    }
+    // Пончики
+    if (lowerName.includes('пончик') || lowerName.includes('donut') || lowerName.includes('донат')) {
+      return '🍩'
+    }
+    // Печенье
+    if (lowerName.includes('печень') || lowerName.includes('cookie')) {
+      return '🍪'
+    }
+    // Тако
+    if (lowerName.includes('тако') || lowerName.includes('taco')) {
+      return '🌮'
+    }
+    // Буррито
+    if (lowerName.includes('буррито') || lowerName.includes('burrito')) {
+      return '🌯'
+    }
+    // Рис
+    if (lowerName.includes('рис') || lowerName.includes('rice') || lowerName.includes('плов')) {
+      return '🍚'
+    }
+    // Лапша
+    if (lowerName.includes('лапша') || lowerName.includes('noodle') || lowerName.includes('вок') || lowerName.includes('wok')) {
+      return '🍜'
+    }
+    // Соусы
+    if (lowerName.includes('соус') || lowerName.includes('sauce') || lowerName.includes('кетчуп') || lowerName.includes('майонез')) {
+      return '🫙'
+    }
+    // Вода
+    if (lowerName.includes('вода') || lowerName.includes('water') || lowerName.includes('минерал')) {
+      return '💧'
+    }
+    // По категории напитки
+    if (lowerCategory.includes('напит') || lowerCategory.includes('drink') || lowerCategory.includes('beverage')) {
+      return '🥤'
+    }
+    // По категории десерты
+    if (lowerCategory.includes('десерт') || lowerCategory.includes('dessert') || lowerCategory.includes('сладк')) {
+      return '🍰'
+    }
+    // По категории завтраки
+    if (lowerCategory.includes('завтрак') || lowerCategory.includes('breakfast')) {
+      return '🍳'
+    }
+
+    // По умолчанию - тарелка с едой
+    return '🍽️'
+  }
+
   const resetForm = () => {
     setFormData({ name: '', nameUz: '', description: '', price: '', categoryId: '' })
   }
@@ -276,7 +390,7 @@ export default function MenuPage() {
                   >
                     {/* Product Image Placeholder */}
                     <div className="h-32 bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center text-5xl relative">
-                      🍔
+                      {getProductIcon(product.name, product.category?.name)}
                       {!product.inStock && (
                         <div className="absolute inset-0 bg-gray-900/50 flex items-center justify-center">
                           <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
